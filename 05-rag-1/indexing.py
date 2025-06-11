@@ -13,9 +13,7 @@ load_dotenv()
 
 if not os.environ.get("GOOGLE_API_KEY"):
   os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
-
-# GOOGLE_API_KEY = os.getenv("GEMINI_API_KEY")
-# genai.configure(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 
 pdf_path= Path(__file__).parent / "nodejs.pdf"
