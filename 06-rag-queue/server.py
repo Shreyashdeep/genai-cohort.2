@@ -1,7 +1,7 @@
-from typing import Union
 
-from fastapi import FastAPI , Query
-from  .queue.connection import queue
+
+from fastapi import FastAPI, Query
+from .queue.connection import queue
 from .queue.worker import process_query
 
 app = FastAPI()
@@ -14,9 +14,9 @@ def root():
 
 @app.post('/chat')
 def chat(
-    query: str =Query(..., desciption="Chat Message")
+    query: str = Query(..., desciption="Chat Message")
 ):
-    job=queue.enqueue(process_query, query)
+    job = queue.enqueue(process_query, query)
     return {"status": "queued", "job_id": job.id}     
 
 

@@ -1,11 +1,12 @@
 {
-    "name": "Learning GenAI cohort",
-    "dockerComposeFile": "docker-compose.yaml",
-    "service": "app",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasedname",
-    "remoteUser": "root",
+  "name": "Learning GenAI Cohort",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "app",
 
-    "customizations": {
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteUser": "root",
+
+  "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
