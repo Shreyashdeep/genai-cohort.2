@@ -50,5 +50,6 @@ def process_query(query: str):
             {"parts": [{"text": query}], "role": "user"}
         ]
     )
-    print(response.text)
+    # print(response.text)
     print(f"🤖: {query}", response.text, "\n\n\n")
+    return response.text
