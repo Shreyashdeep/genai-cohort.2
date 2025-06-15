@@ -37,7 +37,7 @@ embedding_model = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
 vector_store= QdrantVectorStore.from_documents(
     documents=split_documents,
-    url="http://localhost:6333",
+    url="http://vector-db:6333",
     collection_name="learning_vectors",
     embedding=embedding_model
 )
