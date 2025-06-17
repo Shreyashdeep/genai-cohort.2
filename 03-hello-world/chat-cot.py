@@ -58,6 +58,7 @@ while True:
     parsed_responses = json.loads(response.text)
     # Handle both single response (dict) and multiple responses (list)
     responses = parsed_responses if isinstance(parsed_responses, list) else [parsed_responses]
+    print("resoponses 😊",responses)
     
     for resp in responses:
         if resp.get("step") != "result":
@@ -66,5 +67,5 @@ while True:
         # else:
         #     print("Result: ", resp.get("content"))
         #     break
-    print("Result: ", resp.get("content"))
+    print("Result: 🤖", resp.get("content"))
     break
