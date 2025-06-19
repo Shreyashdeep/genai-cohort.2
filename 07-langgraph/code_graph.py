@@ -7,6 +7,7 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.graph.message import add_messages
 from dotenv import load_dotenv
 from pydantic import BaseModel
+import json
 
 load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
@@ -19,7 +20,8 @@ class ClassifyMessageResponse(BaseModel):
 
 
 class CodeAccuracyResponse(BaseModel):
-    accuracy_percentage: int
+    accuracy_percentage: str
+    
 
 
 class State(TypedDict):
@@ -69,8 +71,6 @@ def coding_query(state: State):
     SYSTEM_PROMPT = "You are a Coding Expert Agent"
     model = genai.GenerativeModel("gemini-1.5-flash", system_instruction=SYSTEM_PROMPT)
     response = model.generate_content(
-        # model= "gemini-2.5-flash",
-        # system_instructions=SYSTEM_PROMPT,
         contents=[
             {"parts": [{"text": query}], "role": "user"}
         ]
@@ -90,9 +90,17 @@ def coding_validate_query(state: State):
     """
     model = genai.GenerativeModel(
         "gemini-1.5-flash", system_instruction=SYSTEM_PROMPT)
-    response = model.generate_content(query)
+    response = model.generate_content(
+        contents=[
+             {"parts": [{"text": query}], "role": "user"}
+        ],
+        # generation_config={
+        #     "response_mime_type": "application/json",
+        #     "response_schema": ClassifyMessageResponse.model_json_schema()
+        # }
+    )
     state["accuracy_percentage"] = response.text
-    # return state
+    return state
 
 
 graph_builder = StateGraph(State)
