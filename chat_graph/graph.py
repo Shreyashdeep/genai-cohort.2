@@ -34,7 +34,6 @@ def main():
     DB_URI="mongodb://admin:admin@mongodb:27017"
     config={"configurable": {"thread_id": "1"}}
     with MongoDBSaver.from_conn_string(DB_URI) as mongo_checkpointer:
-        print(DB_URI)
         graph_with_mongo= compile_graph_with_checkpointer(mongo_checkpointer)
         query= input("> ")
         result= graph_with_mongo.invoke({"messages": [{"role": "user", "content": query}]}, config)
