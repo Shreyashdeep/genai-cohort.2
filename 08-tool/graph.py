@@ -10,7 +10,19 @@ import requests
 from langchain_core.tools import tool
 from langgraph.prebuilt import ToolNode , tools_condition
 load_dotenv()
-@tool
+
+todo=[]
+@tool()
+def add_todo(task: str):
+    """Add the input task to the DB"""
+    todo.append(task)
+    return True
+tool()
+def get_all_todo():
+    """Return all the todos"""
+    return todo
+
+@tool()
 def add_two_numbers(a: int, b: int):
     """ this tool add two int numbers"""
     return a+b
@@ -25,7 +37,7 @@ def get_weather(city: str):
         return f"the weather in {city} is {response.text}."
     return "something went wrong"
 
-tools= [get_weather, add_two_numbers]
+tools= [get_weather, add_two_numbers, add_todo, get_all_todo]
 
 
 class State(TypedDict):
@@ -58,13 +70,14 @@ graph_builder.add_edge("tools", "chatbot")
 graph= graph_builder.compile()
 
 def main():
-    user_query= input("> ")
-    state= State(
-        messages=[{"role": "user", "content": user_query}]
-    )
-    # result=graph.invoke(state)
-    for event in graph.stream(state, stream_mode="values"):
-        if "messages" in event:
-            event ["messages"][-1].pretty_print()
+    while True:
+        user_query= input("> ")
+        state= State(
+            messages=[{"role": "user", "content": user_query}]
+        )
+            # result=graph.invoke(state)
+        for event in graph.stream(state, stream_mode="values"):
+            if "messages" in event:
+                event ["messages"][-1].pretty_print()
     
 main()
