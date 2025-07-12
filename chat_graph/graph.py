@@ -29,7 +29,7 @@ graph= graph_builder.compile()
 def compile_graph_with_checkpointer(checkpointer):
     graph_with_checkpointer= graph_builder.compile(checkpointer=checkpointer)
     return graph_with_checkpointer
-
+ 
 def main():
     DB_URI="mongodb://admin:admin@mongodb:27017"
     config={"configurable": {"thread_id": "1"}}
