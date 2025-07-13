@@ -28,7 +28,7 @@ config = {
     },
     "graph_store": {
         "provider": "neo4j",
-        "config":{
+        "config": {
             "url": "bolt://neo4j:7687",
             "username": "neo4j",
             "password": "reform-william-center-vibrate-press-5829"
